@@ -1,14 +1,13 @@
+// Menu Toogle 
 const menuToggle = document.getElementById('menuToggle');
+const nav = document.querySelector('nav ul')
 
-// Tambahkan event listener untuk menangani klik tombol
 menuToggle.addEventListener('click', function () {
-  // Di sini Anda bisa menambahkan aksi apa yang ingin dilakukan saat tombol di-klik
-  // Contoh aksi toggle class atau fungsi lainnya
-  console.log('Tombol menu-toggle diklik!');
   menuToggle.classList.toggle('menu-toggle1');
+  nav.classList.toggle('slide')
 });
 
-
+// Typed Js
 const typed = new Typed('.multiple-text', {
   strings: ["Beginners", "Freelancer", "FullStack Developer"],
   typeSpeed: 100,
@@ -18,14 +17,7 @@ const typed = new Typed('.multiple-text', {
   smartBackspace: true,
 })
 
-
-// let btn = document.querySelector('.btn-i1:nth-child(2)');
-// btn.addEventListener('mouseover', e => {
-//   let rect = e.target.getBoundingClientRect();
-//   let x = e.clientX - rect.left;
-//   btn.style.setProperty('--x', x + 'px');
-// });
-
+// Mix up for selector content
 var mixer = mixitup('.portofolio-gallery', {
   selectors: {
     target: '.port-box'
@@ -35,12 +27,46 @@ var mixer = mixitup('.portofolio-gallery', {
   }
 })
 
-let MoverSpan = document.getElementById('targetMove');
+// OnScroll 
 
-MoverSpan.addEventListener('mousemove', mOver)
-MoverSpan.addEventListener('mouseout', mOut)
-
-
-const mOver = () => {
-  MoverSpan.classList
+window.onscroll = () => {
+  nav.classList.remove('slide')
+  menuToggle.classList.remove('menu-toggle1');
 }
+
+// Animmtion Text with parallax
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show-items')
+      entry.target.classList.add('show-about')
+    } else {
+      entry.target.classList.remove('show-items')
+      entry.target.classList.remove('show-about')
+    }
+  })
+})
+
+const scrollScale = document.querySelectorAll('.scroll-scale');
+scrollScale.forEach((el) => observer.observe(el));
+
+const scrollBottom = document.querySelectorAll('.scroll-bottom');
+scrollBottom.forEach((el) => observer.observe(el))
+
+// Navbar Animation Appears
+const navItems = document.querySelectorAll('.fade-in');
+
+const animateNavItems = (index) => {
+  if (index < navItems.length) {
+    setTimeout(() => {
+      navItems[index].classList.add('active');
+      animateNavItems(index + 1);
+    }, 100 * index);
+  }
+};
+
+animateNavItems(0);
+
+
+
+
